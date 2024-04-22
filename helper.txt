@@ -1,0 +1,18 @@
+ {
+      "isin": "RU000A107UL4",
+      "figi": "TCS00A107UL4",
+      "ticker": "TCSG",
+      "classCode": "TQBR",
+      "instrumentType": "share",
+      "name": "ТКС Холдинг",
+      "uid": "eed9621b-6412-4f4b-a166-758882cc7a4c",
+      "positionUid": "2db97cb9-85b6-416b-9f70-3818a156db8b",
+      "instrumentKind": "INSTRUMENT_TYPE_SHARE",
+      "apiTradeAvailableFlag": true,
+      "forIisFlag": true,
+      "first1minCandleDate": "2019-10-28T06:59:00Z",
+      "first1dayCandleDate": "2019-10-28T07:00:00Z",
+      "forQualInvestorFlag": false,
+      "weekendFlag": true,
+      "blockedTcaFlag": false
+    }
