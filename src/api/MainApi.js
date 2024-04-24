@@ -38,6 +38,20 @@ class mainApi {
       body: JSON.stringify({}),
     }).then(this._checkResponse);
   }
+//получение портфолио
+  getPortfolio() {
+    return fetch(`https://sandbox-invest-public-api.tinkoff.ru/rest/tinkoff.public.invest.api.contract.v1.SandboxService/GetSandboxPortfolio`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${SANDBOX_TOKEN}`,
+      },
+      body: JSON.stringify({
+        "accountId": "9dc15944-11d5-4a1f-a64c-5d89f6fbdb33",
+        "currency": "RUB"
+      }),
+    }).then(this._checkResponse);
+  }
 
   //получение операций по счету
   getAccountOperations() {
@@ -88,7 +102,7 @@ class mainApi {
     }).then(this._checkResponse);
   }
 
-  buyLimit() {
+  buyLimit(figi,quantity,price,orderId) {
     return fetch(`https://sandbox-invest-public-api.tinkoff.ru/rest/tinkoff.public.invest.api.contract.v1.OrdersService/PostOrder`, {
       method: "POST",
       headers: {
@@ -97,21 +111,59 @@ class mainApi {
         Authorization: `Bearer ${SANDBOX_TOKEN}`,
       },
       body: JSON.stringify({
-        "figi": "TCS00A107UL4",
-        "quantity": "2",
+        "figi": `${figi}`,
+        "quantity": `${quantity}`,
         "price": {
           "nano": 6,
-          "units": "3100"
+          "units":`${price}`
         },
         "direction": "1",
         "accountId": "9dc15944-11d5-4a1f-a64c-5d89f6fbdb33",
         "orderType": "1",
-        "orderId": "3474e404-95c1-4ba1-baf1-e6054733acff",
+        "orderId": `${orderId}`,
         "instrumentId": "TCS00A107UL4"
       }),
     }).then(this._checkResponse);
   }
 
+  sellLimit(figi,quantity,price,orderId) {
+    return fetch(`https://sandbox-invest-public-api.tinkoff.ru/rest/tinkoff.public.invest.api.contract.v1.OrdersService/PostOrder`, {
+      method: "POST",
+      headers: {
+        accept: "application/json",
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${SANDBOX_TOKEN}`,
+      },
+      body: JSON.stringify({
+        "figi": `${figi}`,
+        "quantity": `${quantity}`,
+        "price": {
+          "nano": 6,
+          "units":`${price}`
+        },
+        "direction": "2",
+        "accountId": "9dc15944-11d5-4a1f-a64c-5d89f6fbdb33",
+        "orderType": "1",
+        "orderId": `${orderId}`,
+        "instrumentId": "TCS00A107UL4"
+      }),
+    }).then(this._checkResponse);
+  }
+//отмена заявки
+  stopOrder(orderid) {
+    return fetch(`https://sandbox-invest-public-api.tinkoff.ru/rest/tinkoff.public.invest.api.contract.v1.SandboxService/GetSandboxWithdrawLimits`, {
+      method: "POST",
+      headers: {
+        accept: "application/json",
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${SANDBOX_TOKEN}`,
+      },
+      body: JSON.stringify({
+        "accountId": "9dc15944-11d5-4a1f-a64c-5d89f6fbdb33",
+        "orderId": `${orderid}`
+      }),
+    }).then(this._checkResponse);
+  }
 }
 
 const api = new mainApi("https://sandbox-invest-public-api.tinkoff.ru/rest/");
