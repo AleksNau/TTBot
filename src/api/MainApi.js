@@ -164,6 +164,21 @@ class mainApi {
       }),
     }).then(this._checkResponse);
   }
+
+  //стрим
+  stream() {
+    return fetch(`https://sandbox-invest-public-api.tinkoff.ru/rest/tinkoff.public.invest.api.contract.v1.OrdersStreamService/TradesStream`, {
+      method: "POST",
+      headers: {
+        accept: "application/json",
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${SANDBOX_TOKEN}`,
+      },
+      body: JSON.stringify({
+        "accountId": "9dc15944-11d5-4a1f-a64c-5d89f6fbdb33",
+      }),
+    }).then(this._checkResponse);
+  }
 }
 
 const api = new mainApi("https://sandbox-invest-public-api.tinkoff.ru/rest/");
